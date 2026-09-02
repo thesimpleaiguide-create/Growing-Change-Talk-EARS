@@ -32,12 +32,6 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
-        /* State visibility toggling */
-        .show-patient .patient-video { opacity: 1; z-index: 20; }
-        .show-patient .sequence-video { opacity: 0; z-index: 10; }
-
-        .show-sequence .patient-video { opacity: 0; z-index: 10; }
-        .show-sequence .sequence-video { opacity: 1; z-index: 20; transform: scale(1.02); }
     </style>
 </head>
 <body class="bg-transparent m-0 p-4 md:p-8 font-sans text-ttnSlate antialiased w-full min-h-screen flex flex-col items-center justify-center">
@@ -56,14 +50,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <!-- E: Elaborate -->
-            <button onclick="playEarSequence('elaborate')" id="card-elaborate" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col show-patient">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100">
-                    <!-- Patient Video (Shot A) -->
-                    <video id="vid-patient-elaborate" class="patient-video absolute inset-0 w-full h-full object-cover transition-opacity duration-500" muted playsinline preload="auto" onerror="handleVideoError(this)">
-                        <source src="patient_elaborate_360p.mp4" type="video/mp4">
-                    </video>
-                    <!-- Premiere Pro Sequence Video (Shot A -> Shot B with Frame Hold) -->
-                    <video id="vid-sequence-elaborate" class="sequence-video absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0" muted playsinline preload="auto" onerror="handleVideoError(this)">
+            <button onclick="playEarSequence('elaborate')" id="card-elaborate" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
+                    <!-- Sequence Video -->
+                    <video id="vid-sequence-elaborate" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('elaborate')">
                         <source src="lindsay_elaborate_sequence.mp4" type="video/mp4">
                     </video>
                     
@@ -84,12 +74,9 @@
             </button>
 
             <!-- A: Affirm -->
-            <button onclick="playEarSequence('affirm')" id="card-affirm" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col show-patient">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100">
-                    <video id="vid-patient-affirm" class="patient-video absolute inset-0 w-full h-full object-cover transition-opacity duration-500" muted playsinline preload="auto">
-                        <source src="patient_affirm_360p.mp4" type="video/mp4">
-                    </video>
-                    <video id="vid-sequence-affirm" class="sequence-video absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0" muted playsinline preload="auto">
+            <button onclick="playEarSequence('affirm')" id="card-affirm" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
+                    <video id="vid-sequence-affirm" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('affirm')">
                         <source src="lindsay_affirm_sequence.mp4" type="video/mp4">
                     </video>
                     <div class="absolute top-3 right-3 z-30 pointer-events-none">
@@ -109,12 +96,9 @@
             </button>
 
             <!-- R: Reflect -->
-            <button onclick="playEarSequence('reflect')" id="card-reflect" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col show-patient">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100">
-                    <video id="vid-patient-reflect" class="patient-video absolute inset-0 w-full h-full object-cover transition-opacity duration-500" muted playsinline preload="auto">
-                        <source src="patient_reflect_360p.mp4" type="video/mp4">
-                    </video>
-                    <video id="vid-sequence-reflect" class="sequence-video absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0" muted playsinline preload="auto">
+            <button onclick="playEarSequence('reflect')" id="card-reflect" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
+                    <video id="vid-sequence-reflect" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('reflect')">
                         <source src="lindsay_reflect_sequence.mp4" type="video/mp4">
                     </video>
                     <div class="absolute top-3 right-3 z-30 pointer-events-none">
@@ -134,12 +118,9 @@
             </button>
 
             <!-- S: Summarize -->
-            <button onclick="playEarSequence('summarize')" id="card-summarize" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col show-patient">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100">
-                    <video id="vid-patient-summarize" class="patient-video absolute inset-0 w-full h-full object-cover transition-opacity duration-500" muted playsinline preload="auto">
-                        <source src="patient_summarize_360p.mp4" type="video/mp4">
-                    </video>
-                    <video id="vid-sequence-summarize" class="sequence-video absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0" muted playsinline preload="auto">
+            <button onclick="playEarSequence('summarize')" id="card-summarize" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
+                    <video id="vid-sequence-summarize" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('summarize')">
                         <source src="lindsay_summarize_sequence.mp4" type="video/mp4">
                     </video>
                     <div class="absolute top-3 right-3 z-30 pointer-events-none">
@@ -208,11 +189,9 @@
 
         function stopAllMedia() {
             ['elaborate', 'affirm', 'reflect', 'summarize'].forEach(k => {
-                const pVid = document.getElementById(`vid-patient-${k}`);
                 const seqVid = document.getElementById(`vid-sequence-${k}`);
                 const explainAudio = document.getElementById(`audio-lindsay-${k}-explain`);
 
-                if (pVid) { pVid.pause(); pVid.currentTime = 0; }
                 if (seqVid) { seqVid.pause(); seqVid.currentTime = 0; }
                 if (explainAudio) { explainAudio.pause(); explainAudio.currentTime = 0; explainAudio.onended = null; }
             });
@@ -234,10 +213,7 @@
 
             const card = document.getElementById(`card-${key}`);
             const playIcon = document.getElementById(`play-icon-${key}`);
-            
-            const patientVid = document.getElementById(`vid-patient-${key}`);
             const sequenceVid = document.getElementById(`vid-sequence-${key}`);
-            const explainAudio = document.getElementById(`audio-lindsay-${key}-explain`);
 
             // Activate card visual state
             card.classList.add('ring-4', 'ring-ttnTrustBlue/20', 'border-ttnTrustBlue');
@@ -250,37 +226,19 @@
             document.getElementById('exampleSub').textContent = earsData[key].sub;
             box.classList.remove('hidden');
 
-            // 1. Play Shot A (Patient video)
-            card.classList.remove('show-sequence');
-            card.classList.add('show-patient');
-            patientVid.currentTime = 0;
-            
-            let playPromise = patientVid.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => {
-                    console.warn("Patient video file missing or blocked, falling back to audio/box interaction:", e);
-                    // Fallback directly to explanation audio if video asset is missing
-                    triggerAudioExplanation(key, playIcon);
-                });
-            }
+            // Play sequence video (Shot A -> Shot B -> Frame Hold)
+            sequenceVid.currentTime = 0;
+            sequenceVid.play().catch(e => {
+                console.warn("Video play blocked or missing, falling back to voiceover:", e);
+                triggerAudioExplanation(key, playIcon);
+            });
+        }
 
-            // When Patient video finishes Shot A, transition to Sequence Video (Shot B + Frame Hold)
-            patientVid.onended = () => {
-                card.classList.remove('show-patient');
-                card.classList.add('show-sequence');
-                sequenceVid.currentTime = 0;
-                sequenceVid.play().catch(e => {
-                    console.warn("Sequence video missing, playing voiceover directly:", e);
-                    triggerAudioExplanation(key, playIcon);
-                });
-            };
-
-            // When Sequence video finishes its dialogue and hits the frame hold, trigger Dr. Lindsay's coaching explanation voiceover
-            sequenceVid.onended = () => {
-                sequenceTimeout = setTimeout(() => {
-                    triggerAudioExplanation(key, playIcon);
-                }, 1000);
-            };
+        function handleVideoEnded(key) {
+            const playIcon = document.getElementById(`play-icon-${key}`);
+            sequenceTimeout = setTimeout(() => {
+                triggerAudioExplanation(key, playIcon);
+            }, 800);
         }
 
         function triggerAudioExplanation(key, playIcon) {
@@ -296,10 +254,6 @@
                 isPlaying = false;
                 playIcon.innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
             };
-        }
-
-        function handleVideoError(videoEl) {
-            console.warn("Missing video asset detected:", videoEl.querySelector('source')?.getAttribute('src'));
         }
     </script>
 </body>
