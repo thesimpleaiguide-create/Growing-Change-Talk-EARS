@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growing Change Talk: EARS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ttnNavy: '#0C2340',
+                        ttnTrustBlue: '#005EB8',
+                        ttnActionOrange: '#FE5000',
+                        ttnSlate: '#333F48',
+                        ttnIceBlue: '#DBE2E9'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .ears-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ears-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .card-active .base-img { opacity: 0; }
+        .card-active .active-img { opacity: 1; transform: scale(1.05); }
+        .card-active .content-reveal { opacity: 1; transform: translateY(0); }
+        
+        .content-reveal {
+            opacity: 0.4;
+            transform: translateY(10px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-transparent m-0 p-4 md:p-8 font-sans text-ttnSlate antialiased w-full min-h-screen flex flex-col items-center justify-center">
+
+    <div class="max-w-5xl w-full mx-auto space-y-8">
+        
+        <!-- Header Section -->
+        <div class="text-center space-y-3">
+            <h2 class="text-3xl md:text-4xl font-bold text-ttnNavy tracking-tight">Growing Change Talk: EARS</h2>
+            <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Once change talk shows up, don't let it pass. <span class="font-semibold text-ttnTrustBlue">Elaborate, Affirm, Reflect, Summarize.</span> <span class="block text-xs text-slate-500 mt-1">Click a strategy to hear the patient statement followed by Dr. Lindsay's application.</span>
+            </p>
+        </div>
+
+        <!-- Interactive 2x2 EARS Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- E: Elaborate -->
+            <button onclick="playEarSequence('elaborate')" id="card-elaborate" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-[16/9] bg-slate-100 overflow-hidden border-b border-slate-100">
+                    <img src="patient_elaborate_base.jpeg" alt="Patient speaking" class="base-img absolute inset-0 w-full h-full object-cover transition-all duration-700 z-10" onerror="this.onerror=null; this.src='https://placehold.co/800x450/DBE2E9/0C2340?text=Patient+Speaking';" />
+                    <img src="lindsay_elaborate_active.jpeg" alt="Dr. Lindsay responding" class="active-img absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 scale-100 z-20" onerror="this.onerror=null; this.src='https://placehold.co/800x450/005EB8/FFFFFF?text=Dr.+Lindsay+Elaborating';" />
+                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
+                        <div id="play-icon-elaborate" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
+                    <div class="flex items-center justify-between">
+                        <span class="w-10 h-10 rounded-2xl bg-ttnIceBlue text-ttnTrustBlue font-bold text-xl flex items-center justify-center shadow-inner">E</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-ttnNavy">Elaborate</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Ask for more. <span class="italic text-slate-800">"Tell me more about that."</span> Let the patient build the case themselves.</p>
+                </div>
+            </button>
+
+            <!-- A: Affirm -->
+            <button onclick="playEarSequence('affirm')" id="card-affirm" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-[16/9] bg-slate-100 overflow-hidden border-b border-slate-100">
+                    <img src="patient_affirm_base.jpeg" alt="Patient speaking" class="base-img absolute inset-0 w-full h-full object-cover transition-all duration-700 z-10" onerror="this.onerror=null; this.src='https://placehold.co/800x450/DBE2E9/0C2340?text=Patient+Speaking';" />
+                    <img src="lindsay_affirm_active.jpeg" alt="Dr. Lindsay responding" class="active-img absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 scale-100 z-20" onerror="this.onerror=null; this.src='https://placehold.co/800x450/005EB8/FFFFFF?text=Dr.+Lindsay+Affirming';" />
+                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
+                        <div id="play-icon-affirm" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
+                    <div class="flex items-center justify-between">
+                        <span class="w-10 h-10 rounded-2xl bg-blue-100 text-ttnTrustBlue font-bold text-xl flex items-center justify-center shadow-inner">A</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-ttnNavy">Affirm</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Name the strength behind what they just said. Specific, and genuine.</p>
+                </div>
+            </button>
+
+            <!-- R: Reflect -->
+            <button onclick="playEarSequence('reflect')" id="card-reflect" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-[16/9] bg-slate-100 overflow-hidden border-b border-slate-100">
+                    <img src="patient_reflect_base.jpeg" alt="Patient speaking" class="base-img absolute inset-0 w-full h-full object-cover transition-all duration-700 z-10" onerror="this.onerror=null; this.src='https://placehold.co/800x450/DBE2E9/0C2340?text=Patient+Speaking';" />
+                    <img src="lindsay_reflect_active.jpeg" alt="Dr. Lindsay responding" class="active-img absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 scale-100 z-20" onerror="this.onerror=null; this.src='https://placehold.co/800x450/FE5000/FFFFFF?text=Dr.+Lindsay+Reflecting';" />
+                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
+                        <div id="play-icon-reflect" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
+                    <div class="flex items-center justify-between">
+                        <span class="w-10 h-10 rounded-2xl bg-orange-100 text-ttnActionOrange font-bold text-xl flex items-center justify-center shadow-inner">R</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-ttnNavy">Reflect</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Repeat the change talk back. Often amplified slightly, so they hear its full weight.</p>
+                </div>
+            </button>
+
+            <!-- S: Summarize -->
+            <button onclick="playEarSequence('summarize')" id="card-summarize" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
+                <div class="relative w-full aspect-[16/9] bg-slate-100 overflow-hidden border-b border-slate-100">
+                    <img src="patient_summarize_base.jpeg" alt="Patient speaking" class="base-img absolute inset-0 w-full h-full object-cover transition-all duration-700 z-10" onerror="this.onerror=null; this.src='https://placehold.co/800x450/DBE2E9/0C2340?text=Patient+Speaking';" />
+                    <img src="lindsay_summarize_active.jpeg" alt="Dr. Lindsay responding" class="active-img absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 scale-100 z-20" onerror="this.onerror=null; this.src='https://placehold.co/800x450/333F48/FFFFFF?text=Dr.+Lindsay+Summarizing';" />
+                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
+                        <div id="play-icon-summarize" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
+                    <div class="flex items-center justify-between">
+                        <span class="w-10 h-10 rounded-2xl bg-slate-200 text-slate-700 font-bold text-xl flex items-center justify-center shadow-inner">S</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 4</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-ttnNavy">Summarize</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Gather the change talk said so far into one short recap.</p>
+                </div>
+            </button>
+
+        </div>
+
+        <!-- Dynamic Example Callout Box -->
+        <div id="exampleBox" class="bg-ttnActionOrange text-white rounded-2xl p-6 md:p-8 shadow-md transition-all duration-300 relative overflow-hidden hidden">
+            <div class="absolute inset-0 z-0 opacity-10 bg-cover bg-center pointer-events-none" style="background-image: url('Watermark_Background.jpeg');"></div>
+            
+            <div class="relative z-10 space-y-2">
+                <span id="exampleCategory" class="text-xs font-bold uppercase tracking-widest text-white/80">Clinical Example</span>
+                <p id="exampleText" class="text-base md:text-lg font-medium leading-relaxed italic"></p>
+                <span id="exampleSub" class="block text-xs text-white/90 font-semibold pt-1"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Audio Elements for Patient (Your Voice) and Dr. Lindsay -->
+    <audio id="audio-patient-elaborate" src="vo_patient_elaborate.wav"></audio>
+    <audio id="audio-lindsay-elaborate" src="vo_lindsay_elaborate.wav"></audio>
+
+    <audio id="audio-patient-affirm" src="vo_patient_affirm.wav"></audio>
+    <audio id="audio-lindsay-affirm" src="vo_lindsay_affirm.wav"></audio>
+
+    <audio id="audio-patient-reflect" src="vo_patient_reflect.wav"></audio>
+    <audio id="audio-lindsay-reflect" src="vo_lindsay_reflect.wav"></audio>
+
+    <audio id="audio-patient-summarize" src="vo_patient_summarize.wav"></audio>
+    <audio id="audio-lindsay-summarize" src="vo_lindsay_summarize.wav"></audio>
+
+    <script>
+        const earsData = {
+            elaborate: {
+                title: "Elaborate in Practice",
+                text: '"I do get out of breath a lot faster than I used to." — "What kinds of things are you noticing that with?"',
+                sub: 'Dr. Lindsay: Asking for elaboration expands the window of change talk.'
+            },
+            affirm: {
+                title: "Affirm in Practice",
+                text: '"I managed to walk for ten minutes twice this week." — "It takes real commitment to stick to that routine when your joints are sore."',
+                sub: 'Dr. Lindsay: Affirmations anchor their confidence.'
+            },
+            reflect: {
+                title: "Reflect in Practice",
+                text: '"I really need to get my blood pressure down for my family." — "Being around healthy for your family is what matters most right now."',
+                sub: 'Dr. Lindsay: Reflections let them hear their own motivation amplified.'
+            },
+            summarize: {
+                title: "Summarize in Practice",
+                text: '"So far, you’ve mentioned wanting more energy for work and feeling concerned about your test results. Where should we start?"',
+                sub: 'Dr. Lindsay: Summaries anchor the direction before moving forward.'
+            }
+        };
+
+        let isPlaying = false;
+        let sequenceTimeout = null;
+
+        function stopAllAudio() {
+            ['elaborate', 'affirm', 'reflect', 'summarize'].forEach(k => {
+                const pAudio = document.getElementById(`audio-patient-${k}`);
+                const lAudio = document.getElementById(`audio-lindsay-${k}`);
+                if (pAudio) { pAudio.pause(); pAudio.currentTime = 0; pAudio.onended = null; }
+                if (lAudio) { lAudio.pause(); lAudio.currentTime = 0; lAudio.onended = null; }
+            });
+            if (sequenceTimeout) clearTimeout(sequenceTimeout);
+        }
+
+        function resetCards() {
+            ['elaborate', 'affirm', 'reflect', 'summarize'].forEach(k => {
+                const btn = document.getElementById(`card-${k}`);
+                btn.classList.remove('card-active', 'ring-4', 'ring-ttnTrustBlue/20', 'border-ttnTrustBlue');
+                document.getElementById(`play-icon-${k}`).innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+            });
+        }
+
+        function playEarSequence(key) {
+            if (isPlaying) stopAllAudio();
+            resetCards();
+            isPlaying = true;
+
+            const card = document.getElementById(`card-${key}`);
+            const playIcon = document.getElementById(`play-icon-${key}`);
+            const patientAudio = document.getElementById(`audio-patient-${key}`);
+            const lindsayAudio = document.getElementById(`audio-lindsay-${key}`);
+
+            // Activate card visual state
+            card.classList.add('card-active', 'ring-4', 'ring-ttnTrustBlue/20', 'border-ttnTrustBlue');
+            playIcon.innerHTML = `<svg class="w-5 h-5 text-ttnTrustBlue animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>`;
+
+            // Populate and show example box
+            const box = document.getElementById('exampleBox');
+            document.getElementById('exampleCategory').textContent = earsData[key].title;
+            document.getElementById('exampleText').textContent = earsData[key].text;
+            document.getElementById('exampleSub').textContent = earsData[key].sub;
+            box.classList.remove('hidden');
+
+            // Play Patient Voice first
+            patientAudio.play().catch(e => {
+                console.warn("Audio blocked:", e);
+                isPlaying = false;
+            });
+
+            patientAudio.onended = () => {
+                // 1.5s natural pause before Dr. Lindsay's response
+                sequenceTimeout = setTimeout(() => {
+                    lindsayAudio.play();
+
+                    lindsayAudio.onended = () => {
+                        isPlaying = false;
+                        playIcon.innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+                    };
+                }, 1500);
+            };
+        }
+    </script>
+</body>
+</html>
