@@ -42,18 +42,17 @@
         <div class="text-center space-y-3">
             <h2 class="text-3xl md:text-4xl font-bold text-ttnNavy tracking-tight">Growing Change Talk: EARS</h2>
             <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                Once change talk shows up, don't let it pass. <span class="font-semibold text-ttnTrustBlue">Elaborate, Affirm, Reflect, Summarize.</span> <span class="block text-xs text-slate-500 mt-1">Click a strategy to watch the exchange unfold.</span>
+                Once change talk shows up, don't let it pass. <span class="font-semibold text-ttnTrustBlue">Elaborate, Affirm, Reflect, Summarize.</span> <span class="block text-xs text-slate-500 mt-1">Click a strategy to watch the exchange unfold with sound.</span>
             </p>
         </div>
 
-        <!-- Interactive 2x2 EARS Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <!-- E: Elaborate -->
             <button onclick="playEarSequence('elaborate')" id="card-elaborate" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
                 <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <!-- Sequence Video -->
-                    <video id="vid-sequence-elaborate" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('elaborate')">
+                    <!-- Video Sequence with Audio Enabled -->
+                    <video id="vid-sequence-elaborate" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('elaborate')">
                         <source src="lindsay_elaborate_sequence.mp4" type="video/mp4">
                     </video>
                     
@@ -76,7 +75,7 @@
             <!-- A: Affirm -->
             <button onclick="playEarSequence('affirm')" id="card-affirm" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
                 <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <video id="vid-sequence-affirm" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('affirm')">
+                    <video id="vid-sequence-affirm" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('affirm')">
                         <source src="lindsay_affirm_sequence.mp4" type="video/mp4">
                     </video>
                     <div class="absolute top-3 right-3 z-30 pointer-events-none">
@@ -98,7 +97,7 @@
             <!-- R: Reflect -->
             <button onclick="playEarSequence('reflect')" id="card-reflect" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
                 <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <video id="vid-sequence-reflect" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('reflect')">
+                    <video id="vid-sequence-reflect" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('reflect')">
                         <source src="lindsay_reflect_sequence.mp4" type="video/mp4">
                     </video>
                     <div class="absolute top-3 right-3 z-30 pointer-events-none">
@@ -120,7 +119,7 @@
             <!-- S: Summarize -->
             <button onclick="playEarSequence('summarize')" id="card-summarize" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
                 <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <video id="vid-sequence-summarize" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto" onended="handleVideoEnded('summarize')">
+                    <video id="vid-sequence-summarize" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('summarize')">
                         <source src="lindsay_summarize_sequence.mp4" type="video/mp4">
                     </video>
                     <div class="absolute top-3 right-3 z-30 pointer-events-none">
@@ -154,7 +153,6 @@
 
     </div>
 
-    <!-- Dr. Lindsay Coaching Explanation Audio Elements -->
     <audio id="audio-lindsay-elaborate-explain" src="vo_lindsay_elaborate_explain.wav"></audio>
     <audio id="audio-lindsay-affirm-explain" src="vo_lindsay_affirm_explain.wav"></audio>
     <audio id="audio-lindsay-reflect-explain" src="vo_lindsay_reflect_explain.wav"></audio>
@@ -226,8 +224,11 @@
             document.getElementById('exampleSub').textContent = earsData[key].sub;
             box.classList.remove('hidden');
 
-            // Play sequence video (Shot A -> Shot B -> Frame Hold)
+            // Ensure video sound is active
+            sequenceVid.muted = false;
+            sequenceVid.volume = 1.0;
             sequenceVid.currentTime = 0;
+
             sequenceVid.play().catch(e => {
                 console.warn("Video play blocked or missing, falling back to voiceover:", e);
                 triggerAudioExplanation(key, playIcon);
@@ -243,7 +244,10 @@
 
         function triggerAudioExplanation(key, playIcon) {
             const explainAudio = document.getElementById(`audio-lindsay-${key}-explain`);
+            explainAudio.muted = false;
+            explainAudio.volume = 1.0;
             explainAudio.currentTime = 0;
+            
             explainAudio.play().catch(e => {
                 console.warn("Explanation audio blocked or missing:", e);
                 isPlaying = false;
