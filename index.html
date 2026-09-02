@@ -59,11 +59,11 @@
             <button onclick="playEarSequence('elaborate')" id="card-elaborate" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col show-patient">
                 <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100">
                     <!-- Patient Video (Shot A) -->
-                    <video id="vid-patient-elaborate" class="patient-video absolute inset-0 w-full h-full object-cover transition-opacity duration-500" muted playsinline preload="auto">
+                    <video id="vid-patient-elaborate" class="patient-video absolute inset-0 w-full h-full object-cover transition-opacity duration-500" muted playsinline preload="auto" onerror="handleVideoError(this)">
                         <source src="patient_elaborate_360p.mp4" type="video/mp4">
                     </video>
                     <!-- Premiere Pro Sequence Video (Shot A -> Shot B with Frame Hold) -->
-                    <video id="vid-sequence-elaborate" class="sequence-video absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0" muted playsinline preload="auto">
+                    <video id="vid-sequence-elaborate" class="sequence-video absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0" muted playsinline preload="auto" onerror="handleVideoError(this)">
                         <source src="lindsay_elaborate_sequence.mp4" type="video/mp4">
                     </video>
                     
@@ -254,29 +254,52 @@
             card.classList.remove('show-sequence');
             card.classList.add('show-patient');
             patientVid.currentTime = 0;
-            patientVid.play().catch(e => console.warn("Patient video blocked:", e));
+            
+            let playPromise = patientVid.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    console.warn("Patient video file missing or blocked, falling back to audio/box interaction:", e);
+                    // Fallback directly to explanation audio if video asset is missing
+                    triggerAudioExplanation(key, playIcon);
+                });
+            }
 
             // When Patient video finishes Shot A, transition to Sequence Video (Shot B + Frame Hold)
             patientVid.onended = () => {
                 card.classList.remove('show-patient');
                 card.classList.add('show-sequence');
                 sequenceVid.currentTime = 0;
-                sequenceVid.play().catch(e => console.warn("Sequence video blocked:", e));
+                sequenceVid.play().catch(e => {
+                    console.warn("Sequence video missing, playing voiceover directly:", e);
+                    triggerAudioExplanation(key, playIcon);
+                });
             };
 
             // When Sequence video finishes its dialogue and hits the frame hold, trigger Dr. Lindsay's coaching explanation voiceover
             sequenceVid.onended = () => {
-                // 1.0s natural pause before Dr. Lindsay's coaching explanation voiceover begins
                 sequenceTimeout = setTimeout(() => {
-                    explainAudio.currentTime = 0;
-                    explainAudio.play().catch(e => console.warn("Explanation audio blocked:", e));
-
-                    explainAudio.onended = () => {
-                        isPlaying = false;
-                        playIcon.innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-                    };
+                    triggerAudioExplanation(key, playIcon);
                 }, 1000);
             };
+        }
+
+        function triggerAudioExplanation(key, playIcon) {
+            const explainAudio = document.getElementById(`audio-lindsay-${key}-explain`);
+            explainAudio.currentTime = 0;
+            explainAudio.play().catch(e => {
+                console.warn("Explanation audio blocked or missing:", e);
+                isPlaying = false;
+                playIcon.innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+            });
+
+            explainAudio.onended = () => {
+                isPlaying = false;
+                playIcon.innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+            };
+        }
+
+        function handleVideoError(videoEl) {
+            console.warn("Missing video asset detected:", videoEl.querySelector('source')?.getAttribute('src'));
         }
     </script>
 </body>
