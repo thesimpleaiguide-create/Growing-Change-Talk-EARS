@@ -23,242 +23,297 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .ears-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .ears-icon-tile {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .ears-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        .ears-icon-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px -8px rgba(12, 35, 64, 0.12);
+        }
+        .modal-fade {
+            transition: opacity 0.25s ease-out, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
     </style>
 </head>
-<body class="bg-transparent m-0 p-4 md:p-8 font-sans text-ttnSlate antialiased w-full min-h-screen flex flex-col items-center justify-center">
+<body class="bg-transparent m-0 p-4 sm:p-6 md:p-10 font-sans text-ttnSlate antialiased w-full min-h-screen flex flex-col items-center justify-center">
 
     <div class="max-w-5xl w-full mx-auto space-y-8">
         
         <!-- Header Section -->
         <div class="text-center space-y-3">
-            <h2 class="text-3xl md:text-4xl font-bold text-ttnNavy tracking-tight">Growing Change Talk: EARS</h2>
-            <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                Once change talk shows up, don't let it pass. <span class="font-semibold text-ttnTrustBlue">Elaborate, Affirm, Reflect, Summarize.</span> <span class="block text-xs text-slate-500 mt-1">Click a strategy to watch the exchange unfold with sound.</span>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ttnIceBlue/70 text-ttnTrustBlue text-xs font-bold uppercase tracking-wider">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                Core Technique
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-ttnNavy tracking-tight">Growing Change Talk: EARS</h2>
+            <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Once change talk appears, don't let it slip by. Tap any strategy below to pop out the live consultation exchange with sound.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 4 Compact Icon Tiles -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             
             <!-- E: Elaborate -->
-            <button onclick="playEarSequence('elaborate')" id="card-elaborate" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <!-- Video Sequence with Audio Enabled -->
-                    <video id="vid-sequence-elaborate" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('elaborate')">
-                        <source src="lindsay_elaborate_sequence.mp4" type="video/mp4">
-                    </video>
-                    
-                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
-                        <div id="play-icon-elaborate" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <button onclick="openVideoPopout('elaborate')" class="ears-icon-tile group text-left bg-white border-2 border-slate-200 hover:border-ttnTrustBlue rounded-3xl p-6 shadow-sm flex flex-col justify-between focus:outline-none relative overflow-hidden">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-14 h-14 rounded-2xl bg-ttnIceBlue text-ttnTrustBlue font-extrabold text-2xl flex items-center justify-center shadow-inner group-hover:bg-ttnTrustBlue group-hover:text-white transition-colors duration-200">
+                            E
                         </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Step 1</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-ttnNavy group-hover:text-ttnTrustBlue transition-colors">Elaborate</h3>
+                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">Ask for more. Let the patient build the case themselves.</p>
                     </div>
                 </div>
-                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
-                    <div class="flex items-center justify-between">
-                        <span class="w-10 h-10 rounded-2xl bg-ttnIceBlue text-ttnTrustBlue font-bold text-xl flex items-center justify-center shadow-inner">E</span>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 1</span>
+                <div class="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-ttnTrustBlue">
+                    <span>Watch clip</span>
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-ttnTrustBlue flex items-center justify-center group-hover:scale-110 group-hover:bg-ttnTrustBlue group-hover:text-white transition-all shadow-sm">
+                        <svg class="w-4 h-4 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-ttnNavy">Elaborate</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Ask for more. <span class="italic text-slate-800">"Tell me more about that."</span> Let the patient build the case themselves.</p>
                 </div>
             </button>
 
             <!-- A: Affirm -->
-            <button onclick="playEarSequence('affirm')" id="card-affirm" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <video id="vid-sequence-affirm" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('affirm')">
-                        <source src="lindsay_affirm_sequence.mp4" type="video/mp4">
-                    </video>
-                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
-                        <div id="play-icon-affirm" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <button onclick="openVideoPopout('affirm')" class="ears-icon-tile group text-left bg-white border-2 border-slate-200 hover:border-ttnTrustBlue rounded-3xl p-6 shadow-sm flex flex-col justify-between focus:outline-none relative overflow-hidden">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-100 text-ttnTrustBlue font-extrabold text-2xl flex items-center justify-center shadow-inner group-hover:bg-ttnTrustBlue group-hover:text-white transition-colors duration-200">
+                            A
                         </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Step 2</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-ttnNavy group-hover:text-ttnTrustBlue transition-colors">Affirm</h3>
+                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">Name the strength behind what they just said. Genuine recognition.</p>
                     </div>
                 </div>
-                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
-                    <div class="flex items-center justify-between">
-                        <span class="w-10 h-10 rounded-2xl bg-blue-100 text-ttnTrustBlue font-bold text-xl flex items-center justify-center shadow-inner">A</span>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 2</span>
+                <div class="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-ttnTrustBlue">
+                    <span>Watch clip</span>
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-ttnTrustBlue flex items-center justify-center group-hover:scale-110 group-hover:bg-ttnTrustBlue group-hover:text-white transition-all shadow-sm">
+                        <svg class="w-4 h-4 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-ttnNavy">Affirm</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Name the strength behind what they just said. Specific, and genuine.</p>
                 </div>
             </button>
 
             <!-- R: Reflect -->
-            <button onclick="playEarSequence('reflect')" id="card-reflect" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <video id="vid-sequence-reflect" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('reflect')">
-                        <source src="lindsay_reflect_sequence.mp4" type="video/mp4">
-                    </video>
-                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
-                        <div id="play-icon-reflect" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <button onclick="openVideoPopout('reflect')" class="ears-icon-tile group text-left bg-white border-2 border-slate-200 hover:border-ttnActionOrange rounded-3xl p-6 shadow-sm flex flex-col justify-between focus:outline-none relative overflow-hidden">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-14 h-14 rounded-2xl bg-orange-100 text-ttnActionOrange font-extrabold text-2xl flex items-center justify-center shadow-inner group-hover:bg-ttnActionOrange group-hover:text-white transition-colors duration-200">
+                            R
                         </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Step 3</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-ttnNavy group-hover:text-ttnActionOrange transition-colors">Reflect</h3>
+                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">Repeat the change talk back so they hear its full weight.</p>
                     </div>
                 </div>
-                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
-                    <div class="flex items-center justify-between">
-                        <span class="w-10 h-10 rounded-2xl bg-orange-100 text-ttnActionOrange font-bold text-xl flex items-center justify-center shadow-inner">R</span>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 3</span>
+                <div class="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-ttnActionOrange">
+                    <span>Watch clip</span>
+                    <div class="w-8 h-8 rounded-full bg-orange-50 text-ttnActionOrange flex items-center justify-center group-hover:scale-110 group-hover:bg-ttnActionOrange group-hover:text-white transition-all shadow-sm">
+                        <svg class="w-4 h-4 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-ttnNavy">Reflect</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Repeat the change talk back. Often amplified slightly, so they hear its full weight.</p>
                 </div>
             </button>
 
             <!-- S: Summarize -->
-            <button onclick="playEarSequence('summarize')" id="card-summarize" class="ears-card relative group text-left bg-white border-2 border-slate-200 rounded-3xl overflow-hidden shadow-sm focus:outline-none flex flex-col">
-                <div class="relative w-full aspect-square bg-slate-900 overflow-hidden border-b border-slate-100 flex items-center justify-center">
-                    <video id="vid-sequence-summarize" class="absolute inset-0 w-full h-full object-cover" playsinline preload="auto" onended="handleVideoEnded('summarize')">
-                        <source src="lindsay_summarize_sequence.mp4" type="video/mp4">
-                    </video>
-                    <div class="absolute top-3 right-3 z-30 pointer-events-none">
-                        <div id="play-icon-summarize" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-ttnNavy shadow-md group-hover:scale-110 transition-transform">
-                            <svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <button onclick="openVideoPopout('summarize')" class="ears-icon-tile group text-left bg-white border-2 border-slate-200 hover:border-slate-700 rounded-3xl p-6 shadow-sm flex flex-col justify-between focus:outline-none relative overflow-hidden">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-200 text-slate-700 font-extrabold text-2xl flex items-center justify-center shadow-inner group-hover:bg-slate-700 group-hover:text-white transition-colors duration-200">
+                            S
                         </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Step 4</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-ttnNavy group-hover:text-slate-700 transition-colors">Summarize</h3>
+                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">Gather several threads of change talk into one clear recap.</p>
                     </div>
                 </div>
-                <div class="p-6 md:p-8 space-y-3 flex-grow bg-white">
-                    <div class="flex items-center justify-between">
-                        <span class="w-10 h-10 rounded-2xl bg-slate-200 text-slate-700 font-bold text-xl flex items-center justify-center shadow-inner">S</span>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Step 4</span>
+                <div class="pt-5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-700">
+                    <span>Watch clip</span>
+                    <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center group-hover:scale-110 group-hover:bg-slate-700 group-hover:text-white transition-all shadow-sm">
+                        <svg class="w-4 h-4 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-ttnNavy">Summarize</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed font-medium">Gather the change talk said so far into one short recap.</p>
                 </div>
             </button>
 
         </div>
 
-        <!-- Dynamic Example Callout Box -->
-        <div id="exampleBox" class="bg-ttnActionOrange text-white rounded-2xl p-6 md:p-8 shadow-md transition-all duration-300 relative overflow-hidden hidden">
-            <div class="absolute inset-0 z-0 opacity-10 bg-cover bg-center pointer-events-none" style="background-image: url('Watermark_Background.jpeg');"></div>
-            
-            <div class="relative z-10 space-y-2">
-                <span id="exampleCategory" class="text-xs font-bold uppercase tracking-widest text-white/80">Clinical Example</span>
-                <p id="exampleText" class="text-base md:text-lg font-medium leading-relaxed italic"></p>
-                <span id="exampleSub" class="block text-xs text-white/90 font-semibold pt-1"></span>
+        <!-- Static Principle Callout -->
+        <div class="bg-gradient-to-r from-ttnNavy to-slate-900 text-white rounded-2xl p-6 sm:p-7 shadow-sm flex items-center justify-between gap-4">
+            <div class="space-y-1">
+                <span class="text-xs font-bold uppercase tracking-widest text-ttnIceBlue">Core Clinician Rule</span>
+                <p class="text-sm sm:text-base font-medium text-slate-200">
+                    "When you hear sustain talk, roll with it. When you hear change talk, <strong class="text-white">EARS</strong> it immediately."
+                </p>
+            </div>
+            <div class="hidden sm:flex w-12 h-12 rounded-xl bg-white/10 items-center justify-center flex-shrink-0 text-ttnActionOrange">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             </div>
         </div>
 
     </div>
 
-    <audio id="audio-lindsay-elaborate-explain" src="vo_lindsay_elaborate_explain.wav"></audio>
-    <audio id="audio-lindsay-affirm-explain" src="vo_lindsay_affirm_explain.wav"></audio>
-    <audio id="audio-lindsay-reflect-explain" src="vo_lindsay_reflect_explain.wav"></audio>
-    <audio id="audio-lindsay-summarize-explain" src="vo_lindsay_summarize_explain.wav"></audio>
+    <!-- Video Popout Modal -->
+    <div id="videoModal" class="fixed inset-0 z-50 bg-ttnNavy/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        
+        <div id="modalContent" class="modal-fade bg-white w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl border border-slate-200 transform scale-95 flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-5 flex items-center justify-between border-b border-slate-100 bg-white">
+                <div class="flex items-center gap-3">
+                    <span id="modalLetterBadge" class="w-8 h-8 rounded-xl bg-ttnIceBlue text-ttnTrustBlue font-bold text-sm flex items-center justify-center">E</span>
+                    <div>
+                        <span id="modalStepLabel" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400">Step 1</span>
+                        <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-ttnNavy leading-tight">Elaborate</h3>
+                    </div>
+                </div>
+                
+                <!-- Close Button -->
+                <button onclick="closeVideoPopout()" aria-label="Close modal" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Video Player (Square Viewport matching your 1080x1080 export) -->
+            <div class="relative w-full aspect-square bg-black overflow-hidden flex items-center justify-center">
+                <video id="modalVideo" class="w-full h-full object-cover" playsinline preload="auto">
+                    <source id="modalVideoSource" src="" type="video/mp4">
+                    Your browser does not support HTML video.
+                </video>
+            </div>
+
+            <!-- Dialogue Callout & Lindsay Coaching Footer -->
+            <div class="p-5 sm:p-6 bg-slate-50 space-y-3 border-t border-slate-100">
+                <div class="border-l-4 border-ttnTrustBlue pl-3.5 py-0.5">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">Clinical Dialogue</span>
+                    <p id="modalDialogue" class="text-sm font-semibold text-ttnNavy italic leading-relaxed"></p>
+                </div>
+                <div class="pt-2 flex items-start gap-2 text-xs text-slate-600">
+                    <span class="font-bold text-ttnActionOrange flex-shrink-0">Dr Lindsay Dubock:</span>
+                    <span id="modalCoaching" class="leading-relaxed"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <script>
-        const earsData = {
+        const earsConfig = {
             elaborate: {
-                title: "Elaborate in Practice",
-                text: '"I do get out of breath a lot faster than I used to." — "What kinds of things are you noticing that with?"',
-                sub: 'Dr. Lindsay: Asking for elaboration expands the window of change talk.'
+                step: 'Step 1',
+                letter: 'E',
+                title: 'Elaborate',
+                badgeBg: 'bg-ttnIceBlue',
+                badgeText: 'text-ttnTrustBlue',
+                videoSrc: 'lindsay_elaborate_sequence.mp4',
+                dialogue: '"I do get out of breath a lot faster than I used to." — "What kinds of things are you noticing that with?"',
+                coaching: 'Asking for elaboration expands the window of change talk and lets the patient build the case themselves.'
             },
             affirm: {
-                title: "Affirm in Practice",
-                text: '"I managed to walk for ten minutes twice this week." — "It takes real commitment to stick to that routine when your joints are sore."',
-                sub: 'Dr. Lindsay: Affirmations anchor their confidence.'
+                step: 'Step 2',
+                letter: 'A',
+                title: 'Affirm',
+                badgeBg: 'bg-blue-100',
+                badgeText: 'text-ttnTrustBlue',
+                videoSrc: 'lindsay_affirm_sequence.mp4',
+                dialogue: '"I managed to walk for ten minutes twice this week." — "It takes real commitment to stick to that routine when your joints are sore."',
+                coaching: 'Affirmations anchor their confidence with genuine, specific recognition.'
             },
             reflect: {
-                title: "Reflect in Practice",
-                text: '"I really need to get my blood pressure down for my family." — "Being around healthy for your family is what matters most right now."',
-                sub: 'Dr. Lindsay: Reflections let them hear their own motivation amplified.'
+                step: 'Step 3',
+                letter: 'R',
+                title: 'Reflect',
+                badgeBg: 'bg-orange-100',
+                badgeText: 'text-ttnActionOrange',
+                videoSrc: 'lindsay_reflect_sequence.mp4',
+                dialogue: '"I really need to get my blood pressure down for my family." — "Being healthy for your family is what matters most right now."',
+                coaching: 'Reflections repeat the change talk back, amplified slightly so they hear its full weight.'
             },
             summarize: {
-                title: "Summarize in Practice",
-                text: '"So far, you’ve mentioned wanting more energy for work and feeling concerned about your test results. Where should we start?"',
-                sub: 'Dr. Lindsay: Summaries anchor the direction before moving forward.'
+                step: 'Step 4',
+                letter: 'S',
+                title: 'Summarize',
+                badgeBg: 'bg-slate-200',
+                badgeText: 'text-slate-700',
+                videoSrc: 'lindsay_summarize_sequence.mp4',
+                dialogue: '"I know I need to move more, but my work schedule is chaotic." — "So far, you’ve mentioned wanting more energy and concern over test results. Where should we start?"',
+                coaching: 'Gathering the threads of change talk into one short recap anchors the direction before moving forward.'
             }
         };
 
-        let isPlaying = false;
-        let sequenceTimeout = null;
+        const modal = document.getElementById('videoModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalVideoSource = document.getElementById('modalVideoSource');
 
-        function stopAllMedia() {
-            ['elaborate', 'affirm', 'reflect', 'summarize'].forEach(k => {
-                const seqVid = document.getElementById(`vid-sequence-${k}`);
-                const explainAudio = document.getElementById(`audio-lindsay-${k}-explain`);
+        function openVideoPopout(key) {
+            const data = earsConfig[key];
+            if (!data) return;
 
-                if (seqVid) { seqVid.pause(); seqVid.currentTime = 0; }
-                if (explainAudio) { explainAudio.pause(); explainAudio.currentTime = 0; explainAudio.onended = null; }
-            });
-            if (sequenceTimeout) clearTimeout(sequenceTimeout);
-        }
+            // Populate modal texts and badges
+            document.getElementById('modalStepLabel').textContent = data.step;
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalDialogue').textContent = data.dialogue;
+            document.getElementById('modalCoaching').textContent = data.coaching;
 
-        function resetCards() {
-            ['elaborate', 'affirm', 'reflect', 'summarize'].forEach(k => {
-                const btn = document.getElementById(`card-${k}`);
-                btn.classList.remove('ring-4', 'ring-ttnTrustBlue/20', 'border-ttnTrustBlue');
-                document.getElementById(`play-icon-${k}`).innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-            });
-        }
+            const badge = document.getElementById('modalLetterBadge');
+            badge.textContent = data.letter;
+            badge.className = `w-8 h-8 rounded-xl font-bold text-sm flex items-center justify-center ${data.badgeBg} ${data.badgeText}`;
 
-        function playEarSequence(key) {
-            if (isPlaying) stopAllMedia();
-            resetCards();
-            isPlaying = true;
+            // Load and play video sequence with sound
+            modalVideoSource.src = data.videoSrc;
+            modalVideo.load();
+            modalVideo.muted = false;
+            modalVideo.volume = 1.0;
 
-            const card = document.getElementById(`card-${key}`);
-            const playIcon = document.getElementById(`play-icon-${key}`);
-            const sequenceVid = document.getElementById(`vid-sequence-${key}`);
+            // Reveal modal
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
 
-            // Activate card visual state
-            card.classList.add('ring-4', 'ring-ttnTrustBlue/20', 'border-ttnTrustBlue');
-            playIcon.innerHTML = `<svg class="w-5 h-5 text-ttnTrustBlue animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>`;
-
-            // Populate and show example box
-            const box = document.getElementById('exampleBox');
-            document.getElementById('exampleCategory').textContent = earsData[key].title;
-            document.getElementById('exampleText').textContent = earsData[key].text;
-            document.getElementById('exampleSub').textContent = earsData[key].sub;
-            box.classList.remove('hidden');
-
-            // Ensure video sound is active
-            sequenceVid.muted = false;
-            sequenceVid.volume = 1.0;
-            sequenceVid.currentTime = 0;
-
-            sequenceVid.play().catch(e => {
-                console.warn("Video play blocked or missing, falling back to voiceover:", e);
-                triggerAudioExplanation(key, playIcon);
+            // Autoplay unmuted
+            modalVideo.play().catch(err => {
+                console.warn("Autoplay audio blocked; video starting muted:", err);
+                modalVideo.muted = true;
+                modalVideo.play();
             });
         }
 
-        function handleVideoEnded(key) {
-            const playIcon = document.getElementById(`play-icon-${key}`);
-            sequenceTimeout = setTimeout(() => {
-                triggerAudioExplanation(key, playIcon);
-            }, 800);
+        function closeVideoPopout() {
+            // Stop and reset playback
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+            modalVideoSource.src = "";
+
+            // Hide modal
+            modal.classList.add('pointer-events-none', 'opacity-0');
+            modal.classList.remove('opacity-100');
+            modalContent.classList.add('scale-95');
+            modalContent.classList.remove('scale-100');
         }
 
-        function triggerAudioExplanation(key, playIcon) {
-            const explainAudio = document.getElementById(`audio-lindsay-${key}-explain`);
-            explainAudio.muted = false;
-            explainAudio.volume = 1.0;
-            explainAudio.currentTime = 0;
-            
-            explainAudio.play().catch(e => {
-                console.warn("Explanation audio blocked or missing:", e);
-                isPlaying = false;
-                playIcon.innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-            });
+        // Close on clicking backdrop
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeVideoPopout();
+            }
+        });
 
-            explainAudio.onended = () => {
-                isPlaying = false;
-                playIcon.innerHTML = '<svg class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-            };
-        }
+        // Close on pressing Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+                closeVideoPopout();
+            }
+        });
     </script>
 </body>
 </html>
